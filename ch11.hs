@@ -188,3 +188,71 @@ capitalizeParagraph xs =
   capitalizeWord (takening xs) ++ " " ++
   capitalizeParagraph (drop (length (takening xs) + 1) xs)
   where takening a = takeWhile (/='.') a ++ "."
+
+data DaPhone = DaPhone [Button]
+data Button = Button Char String deriving Show
+
+phone :: DaPhone
+phone = DaPhone [Button '1' "1", Button '2' "abc2", Button '3' "def3"
+                , Button '4' "ghi4", Button '5' "jkl5", Button '6' "mno6"
+                , Button '7' "pqrs7", Button '8' "tuv8", Button '9' "wxyz9"
+                , Button '*' "*", Button '0' " 0", Button '#' ",.#"]
+
+type Digit = Char
+type Presses = Int
+
+reverseTaps :: DaPhone -> Char -> [(Digit, Presses)]
+reverseTaps (DaPhone (Button x y : xs)) a
+  | a `elem` y = [(x, 1 + findDigit a y)]
+  | toLower a `elem` y = [('*', 1), (x, 1 + findDigit (toLower a) y)]
+  | otherwise = reverseTaps (DaPhone xs) a
+  where findDigit m n= length $ takeWhile (/=m) n
+
+cellPhonesDead :: DaPhone -> String -> [(Digit, Presses)]
+cellPhonesDead ns [] = []
+cellPhonesDead ns (x:xs) = reverseTaps ns x ++ cellPhonesDead ns xs
+
+convo :: [String]
+convo =
+    ["Wanna play 20 questions",
+    "Ya",
+    "U 1st haha",
+    "Lol ok. Have u ever tasted alcohol lol",
+    "Lol ya",
+    "Wow ur cool haha. Ur turn",
+    "Ok. Do u think I am pretty Lol",
+    "Lol ya",
+    "Haha thanks just making sure rofl ur turn"]
+
+fingerTaps :: [(Digit, Presses)] -> Presses
+fingerTaps [] = 0
+fingerTaps ((_,x):xs) = x + fingerTaps xs
+
+fingerTaps' :: [(Digit, Presses)] -> Presses
+fingerTaps' = foldr (\(_,a) b -> a + b) 0
+
+count :: Eq a => Int -> [a] -> [Int]
+count n xs
+  | n < length xs = foldr (\a b -> if a == (xs !! n) then 1 + b else b) 0 xs : count (n + 1) xs 
+  | otherwise = []
+
+mostPopularLetter :: String -> Char
+mostPopularLetter xs = fst . maxi . takeOut . sort . zip xs $ (count 0 xs)
+  where takeOut = dropWhile (\(a, _) -> a == ' ' || a == '*' || a == '#')
+        maxi = foldr1 (\s@(_,a) s2@(_,b) -> if a > b then s else s2)
+
+coolestLtr :: [String] -> Char
+coolestLtr = mostPopularLetter . map mostPopularLetter
+
+coolestWord :: [String] -> String
+coolestWord xs = snd . maximum . zip (count 0 (words . concat $ xs)) $ (words . concat $ xs)
+
+data Expr = Lit Integer | Add Expr Expr
+
+eval :: Expr -> Integer
+eval (Lit x) = x
+eval (Add x y) = eval x + eval y
+
+printExpr :: Expr -> String
+printExpr (Lit x) = show x
+printExpr (Add x y) = printExpr x ++ " + " ++ printExpr y

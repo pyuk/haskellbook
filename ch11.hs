@@ -156,6 +156,23 @@ cipher n x
   | n < 0 = cipher (n + 1) $ chr (ord x - 1)
   | otherwise = x
 
+cipherUser :: IO String
+cipherUser = do
+  putStr "enter text to cipher: "
+  toCipher <- getLine
+  putStr "enter key: "
+  cipherWith <- getLine
+  return $ vigCipher toCipher cipherWith
+
+uncipherUser :: IO String
+uncipherUser = do
+  putStr "enter text to uncipher: "
+  unCipher' <- getLine
+  putStr "enter key: "
+  uncipherWith <- getLine
+  return $ unCipher unCipher' uncipherWith
+
+
 vigCipher :: String -> String -> String
 vigCipher xs ys =
   let convert = conv xs ys 1

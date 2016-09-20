@@ -30,7 +30,7 @@ version = Version [0,1,0,0] []
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/home/kai/Projects/haskellbook/ch14/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/bin"
-libdir     = "/home/kai/Projects/haskellbook/ch14/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/lib/x86_64-linux-ghc-8.0.1/Addition-0.1.0.0-A0P9rPVBWHC43N1AYkw4pU"
+libdir     = "/home/kai/Projects/haskellbook/ch14/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/lib/x86_64-linux-ghc-8.0.1/Addition-0.1.0.0-44tsVVIga5OB1GDSHJIz9G"
 datadir    = "/home/kai/Projects/haskellbook/ch14/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/share/x86_64-linux-ghc-8.0.1/Addition-0.1.0.0"
 libexecdir = "/home/kai/Projects/haskellbook/ch14/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/libexec"
 sysconfdir = "/home/kai/Projects/haskellbook/ch14/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/etc"

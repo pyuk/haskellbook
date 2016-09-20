@@ -7,6 +7,13 @@
   (major1) == 0 && (major2) <  1 || \
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 
+/* package QuickCheck-2.8.2 */
+#define VERSION_QuickCheck "2.8.2"
+#define MIN_VERSION_QuickCheck(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  8 || \
+  (major1) == 2 && (major2) == 8 && (minor) <= 2)
+
 /* package base-4.9.0.0 */
 #define VERSION_base "4.9.0.0"
 #define MIN_VERSION_base(major1,major2,minor) (\
@@ -77,7 +84,7 @@
   (major1) == 2 && (major2) <  26 || \
   (major1) == 2 && (major2) == 26 && (minor) <= 0)
 
-#define CURRENT_COMPONENT_ID "Addition-0.1.0.0-A0P9rPVBWHC43N1AYkw4pU"
+#define CURRENT_COMPONENT_ID "Addition-0.1.0.0-44tsVVIga5OB1GDSHJIz9G"
 
-#define CURRENT_PACKAGE_KEY "Addition-0.1.0.0-A0P9rPVBWHC43N1AYkw4pU"
+#define CURRENT_PACKAGE_KEY "Addition-0.1.0.0-44tsVVIga5OB1GDSHJIz9G"
 

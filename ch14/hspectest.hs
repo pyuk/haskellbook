@@ -1,9 +1,7 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 import Test.Hspec
 import Test.QuickCheck
 import Data.List (sort)
-import GHC.Generics
+import Data.Char (toUpper)
 
 half :: Fractional a => a -> a
 half x = x / 2
@@ -28,17 +26,51 @@ main = hspec $ do
       property $ \x y z -> multAssociative (x :: Int) y z 
     it "mult x y z are commutative" $ do
       property $ \x y -> multCommutative (x :: Int) y
+  describe "different folds" $ do
+    it "folding cons" $
+      property $ \x y -> foldr (:) (x :: [Int]) y == (++) x y
 
-numGen :: Gen Int
-numGen = coarbitrary (FuncGen 0) arbitrary
+twice f = f . f
+fourTimes = twice . twice
 
-data FuncGen = FuncGen Int deriving (Eq, Show, Generic)
+prop_cap :: String -> Bool
+prop_cap s =
+  if (capitalizeWord s == twice capitalizeWord s)
+  then fourTimes capitalizeWord s == capitalizeWord s
+  else False
 
-instance CoArbitrary FuncGen
+prop_sort :: String -> Bool
+prop_sort s =
+  if (sort s == twice sort s)
+  then sort s == fourTimes sort s
+  else False
 
---prop_dollar :: (Eq b, Eq a) => (a -> b) -> a -> Bool
-prop_dollar :: (FuncGen -> FuncGen) -> FuncGen -> Bool
-prop_dollar f x = f x == (f $ x)
+capitalizeWord :: String -> String
+capitalizeWord s = map toUpper s
+
+square x = x * x
+squareIdentity = square . sqrt
+
+prop_square :: Double -> Bool
+prop_square x = squareIdentity x == x
+
+prop_readShow :: Int -> Bool
+prop_readShow x = (read (show x)) == x
+
+prop_thing :: Int -> [Int] -> Bool
+prop_thing x xs = length (take x xs) == x
+
+prop_fold :: [Int] -> [Int] -> Bool
+prop_fold x y = foldr (:) x y == (++) x y
+
+prop_fold2 :: [[Int]] -> Bool
+prop_fold2 x = foldr (++) [] x == concat x
+
+prop_dollar :: Int -> Bool
+prop_dollar x = (+1) x == ((+1) $ x)
+
+prop_dot :: Int -> Bool
+prop_dot x = (\x -> x * 2 + 1) x == ((+1) . (*2)) x
 
 prop_quotrem :: Int -> Int -> Bool
 prop_quotrem x y
@@ -79,3 +111,14 @@ plusAssociative x y z =
 
 plusCommutative x y =
   x + y == y + x
+
+data Fool = Fulse | Frue deriving (Eq, Show)
+
+foolGen :: Gen Fool
+foolGen = elements [Fulse, Frue]
+
+instance Arbitrary Fool where
+  arbitrary = foolGen
+
+foolGen' :: Gen Fool
+foolGen' = elements [Fulse, Fulse, Frue]

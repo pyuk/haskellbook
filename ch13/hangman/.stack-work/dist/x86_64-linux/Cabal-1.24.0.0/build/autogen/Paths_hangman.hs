@@ -29,11 +29,11 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/kai/Projects/haskellbook/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/bin"
-libdir     = "/home/kai/Projects/haskellbook/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/lib/x86_64-linux-ghc-8.0.1/hangman-0.1.0.0"
-datadir    = "/home/kai/Projects/haskellbook/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/share/x86_64-linux-ghc-8.0.1/hangman-0.1.0.0"
-libexecdir = "/home/kai/Projects/haskellbook/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/libexec"
-sysconfdir = "/home/kai/Projects/haskellbook/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/etc"
+bindir     = "/home/kai/Projects/haskellbook/ch13/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/bin"
+libdir     = "/home/kai/Projects/haskellbook/ch13/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/lib/x86_64-linux-ghc-8.0.1/hangman-0.1.0.0"
+datadir    = "/home/kai/Projects/haskellbook/ch13/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/share/x86_64-linux-ghc-8.0.1/hangman-0.1.0.0"
+libexecdir = "/home/kai/Projects/haskellbook/ch13/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/libexec"
+sysconfdir = "/home/kai/Projects/haskellbook/ch13/hangman/.stack-work/install/x86_64-linux/lts-7.0/8.0.1/etc"
 
 getBinDir, getLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "hangman_bindir") (\_ -> return bindir)

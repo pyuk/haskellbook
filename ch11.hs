@@ -187,6 +187,9 @@ unCipher xs ys =
       vigC (a:as) (b:bs) = cipher (negate $ ord b - 97) a : vigC as bs
   in vigC xs convert
 
+prop_vigCipher :: String -> Bool
+prop_vigCipher s = s == ((`unCipher` "whose") . (`vigCipher` "whose") $ s)
+
 isSubsequenceOf1 :: (Eq a) => [a] -> [a] -> Bool
 isSubsequenceOf1 xs ys = all (`elem` ys) xs
 

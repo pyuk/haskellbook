@@ -1,0 +1,227 @@
+
+==================== FINAL INTERFACE ====================
+2016-09-21 01:47:34.218467 UTC
+
+interface main@main:HangmanTest 8001
+  interface hash: 03a69990e1115ce45c08047b7c516991
+  ABI hash: e9d1fab14381c7f70eb7fdd496d51899
+  export-list hash: 4b5b8a11df818da969f0ccbd1f51eeeb
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 07e0eec02ac8e05c9137e98277fb7989
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  HangmanTest.prop_handle
+  HangmanTest.prop_puz
+module dependencies: Main
+package dependencies: HUnit-1.3.1.2@HUnit-1.3.1.2-LggooYwT1UPHSoNYWvAdgk
+                      QuickCheck-2.8.2@QuickCheck-2.8.2-B7cXgOk7OAiKrNRsk2SfuA
+                      ansi-terminal-0.6.2.3@ansi-terminal-0.6.2.3-448ipfN5j28Ha0AgPiJmdI
+                      array-0.5.1.1@array-0.5.1.1
+                      async-2.1.0@async-2.1.0-J6Pl8k3L4PKGEpjYdgwiIf base-4.9.0.0
+                      containers-0.5.7.1@containers-0.5.7.1
+                      deepseq-1.4.2.0@deepseq-1.4.2.0 ghc-boot-th-8.0.1@ghc-boot-th-8.0.1
+                      ghc-prim-0.5.0.0 hspec-2.2.3@hspec-2.2.3-3A7gcWeDS0m19mITkn1B7w
+                      hspec-core-2.2.3@hspec-core-2.2.3-12WIy50J3DO9ac2aAucsOq
+                      hspec-expectations-0.7.2@hspec-expectations-0.7.2-2hcUzmYSxY99w7X9aRVhtQ
+                      integer-gmp-1.0.0.1 pretty-1.1.3.3@pretty-1.1.3.3
+                      primitive-0.6.1.0@primitive-0.6.1.0-Ip44DqhfCp21tTUYbecwa
+                      quickcheck-io-0.1.3@quickcheck-io-0.1.3-5Hh2GbBZjnpHefdPBp5l4r
+                      random-1.1@random-1.1-54KmMHXjttlERYcr1mvsAe
+                      setenv-0.1.1.3@setenv-0.1.1.3-5zeeXxY3qb3AsPnIgczcsm
+                      stm-2.4.4.1@stm-2.4.4.1-4z2NRWnB0NIIUvSJsHW0kF
+                      template-haskell-2.11.0.0
+                      tf-random-0.5@tf-random-0.5-4z8OJUaXC1FRNfrLPFWAD
+                      time-1.6.0.1@time-1.6.0.1 transformers-0.5.2.0@transformers-0.5.2.0
+orphans: base-4.9.0.0:GHC.Base base-4.9.0.0:GHC.Float
+         quickcheck-io-0.1.3@quickcheck-io-0.1.3-5Hh2GbBZjnpHefdPBp5l4r:Test.QuickCheck.IO
+         stm-2.4.4.1@stm-2.4.4.1-4z2NRWnB0NIIUvSJsHW0kF:Control.Monad.STM
+         time-1.6.0.1@time-1.6.0.1:Data.Time.Calendar.Gregorian
+         time-1.6.0.1@time-1.6.0.1:Data.Time.Format.Parse
+         time-1.6.0.1@time-1.6.0.1:Data.Time.LocalTime.LocalTime
+         transformers-0.5.2.0@transformers-0.5.2.0:Control.Monad.Trans.Error
+family instance modules: base-4.9.0.0:Control.Applicative
+                         base-4.9.0.0:Data.Complex base-4.9.0.0:Data.Either
+                         base-4.9.0.0:Data.Functor.Const base-4.9.0.0:Data.Functor.Identity
+                         base-4.9.0.0:Data.List.NonEmpty base-4.9.0.0:Data.Monoid
+                         base-4.9.0.0:Data.Semigroup base-4.9.0.0:Data.Type.Equality
+                         base-4.9.0.0:Data.Version base-4.9.0.0:Data.Void
+                         base-4.9.0.0:GHC.Exts base-4.9.0.0:GHC.Generics
+                         base-4.9.0.0:GHC.IO.Exception base-4.9.0.0:GHC.TypeLits
+                         containers-0.5.7.1@containers-0.5.7.1:Data.IntMap.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.IntSet.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Map.Base
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Sequence
+                         containers-0.5.7.1@containers-0.5.7.1:Data.Set.Base
+                         ghc-boot-th-8.0.1@ghc-boot-th-8.0.1:GHC.LanguageExtensions.Type
+                         hspec-core-2.2.3@hspec-core-2.2.3-12WIy50J3DO9ac2aAucsOq:Test.Hspec.Core.Example
+                         pretty-1.1.3.3@pretty-1.1.3.3:Text.PrettyPrint.Annotated.HughesPJ
+                         pretty-1.1.3.3@pretty-1.1.3.3:Text.PrettyPrint.HughesPJ
+                         primitive-0.6.1.0@primitive-0.6.1.0-Ip44DqhfCp21tTUYbecwa:Control.Monad.Primitive
+                         template-haskell-2.11.0.0:Language.Haskell.TH.Syntax
+import  -/  QuickCheck-2.8.2@QuickCheck-2.8.2-B7cXgOk7OAiKrNRsk2SfuA:Test.QuickCheck a3636f7c6b928d0bf1ca94109fdc4fa1
+import  -/  base-4.9.0.0:Data.Foldable 8aeb682f6c74f97fcf0ace0d608a43ea
+import  -/  base-4.9.0.0:GHC.Base 8ed3be81c0707b322f975a84ae1bb816
+import  -/  base-4.9.0.0:Prelude b9bddb97799837fe67a8d00939a5b6c3
+import  -/  ghc-prim-0.5.0.0:GHC.Classes 0bdf3d057a415ec1b84a7b1994efbe47
+import  -/  ghc-prim-0.5.0.0:GHC.Types 7378e41b7749213c8c88ceb6b0665d4c
+import  -/  hspec-2.2.3@hspec-2.2.3-3A7gcWeDS0m19mITkn1B7w:Test.Hspec 2c9a56defebc58b280da72ff26b1dffd
+import  -/  Main 3b318c2a2565aa67590a7bacc395fc4f
+  exports: 25f7a3533a822f8635390e674d96c866
+  Puzzle fb0f7a3a019f839a489c5b1b4a26385a
+  fillInCharacter 6ff8973af45bcdaff4c69f64d6931ea0
+  handleGuess 1b2c07c4ba5e7ab7bb8f9b6b5876bce4
+af193d6be1da4ef41ad4332f7bd97c91
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   HangmanTest.$trModule2
+                   HangmanTest.$trModule1) -}
+4767e94cbc926da0ece228384ba9b085
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "HangmanTest"#) -}
+3e728f810350f6cecce2e397d247f228
+  $trModule2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "main"#) -}
+77678571ec56f63874c699bb63b93147
+  prop_handle :: GHC.Types.Char -> GHC.Types.IO GHC.Types.Bool
+  {- Arity: 2, Strictness: <L,U(U)><S,U>,
+     Unfolding: InlineRule (0, True, True)
+                HangmanTest.prop_handle1
+                  `cast`
+                (<GHC.Types.Char>_R
+                 ->_R Sym (GHC.Types.N:IO[0] <GHC.Types.Bool>_R)) -}
+7a3a6d7757784da9e6bb5274367a1320
+  prop_handle1 ::
+    GHC.Types.Char
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, GHC.Types.Bool #)
+  {- Arity: 2, Strictness: <L,U(U)><S,U>,
+     Unfolding: (\ (x :: GHC.Types.Char)
+                   (eta :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                 case Main.handleGuess1
+                        HangmanTest.prop_handle7
+                        x
+                        eta of ds { (#,#) ipv ipv1 ->
+                 (# ipv,
+                    case GHC.List.elem
+                           @ GHC.Types.Char
+                           GHC.Classes.$fEqChar
+                           x
+                           HangmanTest.prop_handle6 of wild {
+                      GHC.Types.False
+                      -> case ipv1 of ww { Main.Puzzle ww1 ww2 ww3 ->
+                         Main.$w$c==
+                           ww1
+                           ww2
+                           ww3
+                           HangmanTest.prop_handle6
+                           HangmanTest.prop_handle5
+                           (GHC.Types.: @ GHC.Types.Char x (GHC.Types.[] @ GHC.Types.Char)) }
+                      GHC.Types.True
+                      -> case x of wild1 { GHC.Types.C# x1 ->
+                         case x1 of wild2 {
+                           DEFAULT
+                           -> case HangmanTest.prop_handle4 ret_ty GHC.Types.Bool of {}
+                           'a'#
+                           -> case ipv1 of ww { Main.Puzzle ww1 ww2 ww3 ->
+                              Main.$w$c==
+                                ww1
+                                ww2
+                                ww3
+                                HangmanTest.prop_handle6
+                                (GHC.Types.:
+                                   @ (GHC.Base.Maybe GHC.Types.Char)
+                                   (GHC.Base.Nothing @ GHC.Types.Char)
+                                   (GHC.Types.:
+                                      @ (GHC.Base.Maybe GHC.Types.Char)
+                                      (GHC.Base.Just @ GHC.Types.Char wild1)
+                                      HangmanTest.prop_handle3))
+                                (GHC.Types.:
+                                   @ GHC.Types.Char
+                                   wild1
+                                   (GHC.Types.[] @ GHC.Types.Char)) }
+                           'c'#
+                           -> case ipv1 of ww { Main.Puzzle ww1 ww2 ww3 ->
+                              Main.$w$c==
+                                ww1
+                                ww2
+                                ww3
+                                HangmanTest.prop_handle6
+                                (GHC.Types.:
+                                   @ (GHC.Base.Maybe GHC.Types.Char)
+                                   (GHC.Base.Just @ GHC.Types.Char wild1)
+                                   HangmanTest.prop_handle2)
+                                (GHC.Types.:
+                                   @ GHC.Types.Char
+                                   wild1
+                                   (GHC.Types.[] @ GHC.Types.Char)) }
+                           't'#
+                           -> case ipv1 of ww { Main.Puzzle ww1 ww2 ww3 ->
+                              Main.$w$c==
+                                ww1
+                                ww2
+                                ww3
+                                HangmanTest.prop_handle6
+                                (GHC.Types.:
+                                   @ (GHC.Base.Maybe GHC.Types.Char)
+                                   (GHC.Base.Nothing @ GHC.Types.Char)
+                                   (GHC.Types.:
+                                      @ (GHC.Base.Maybe GHC.Types.Char)
+                                      (GHC.Base.Nothing @ GHC.Types.Char)
+                                      (GHC.Types.:
+                                         @ (GHC.Base.Maybe GHC.Types.Char)
+                                         (GHC.Base.Just @ GHC.Types.Char wild1)
+                                         (GHC.Types.[] @ (GHC.Base.Maybe GHC.Types.Char)))))
+                                (GHC.Types.:
+                                   @ GHC.Types.Char
+                                   wild1
+                                   (GHC.Types.[] @ GHC.Types.Char)) } } } } #) }) -}
+4060e52c027058daadd6d3a20a741f7a
+  prop_handle2 :: [GHC.Base.Maybe GHC.Types.Char]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ (GHC.Base.Maybe GHC.Types.Char)
+                   (GHC.Base.Nothing @ GHC.Types.Char)
+                   HangmanTest.prop_handle3) -}
+90747bae797311952e2eaf713ebed6ef
+  prop_handle3 :: [GHC.Base.Maybe GHC.Types.Char]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ (GHC.Base.Maybe GHC.Types.Char)
+                   (GHC.Base.Nothing @ GHC.Types.Char)
+                   (GHC.Types.[] @ (GHC.Base.Maybe GHC.Types.Char))) -}
+e9a140bba5887fd02bcc18f66108c9b9
+  prop_handle4 :: Main.Puzzle
+  {- Strictness: x -}
+d30e666de3c9dbfe1d74856db8c1f9fb
+  prop_handle5 :: [GHC.Base.Maybe GHC.Types.Char]
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ (GHC.Base.Maybe GHC.Types.Char)
+                   (GHC.Base.Nothing @ GHC.Types.Char)
+                   HangmanTest.prop_handle2) -}
+08c15476d30eae4bc34f8fedcfaef9df
+  prop_handle6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "cat"#) -}
+a7890c0546d2a3baf833ba4208bb456d
+  prop_handle7 :: Main.Puzzle
+  {- Strictness: m,
+     Unfolding: (Main.Puzzle
+                   HangmanTest.prop_handle6
+                   HangmanTest.prop_handle5
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+45bf59b16e207717eabf3fc43c3e5753
+  prop_puz :: GHC.Types.Char -> GHC.Types.Bool
+  {- Arity: 1, Strictness: <L,U(U)> -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+

@@ -39,7 +39,7 @@ randomWord (WordList wl) = do
 randomWord' :: IO String
 randomWord' = gameWords >>= randomWord
 
-data Puzzle = Puzzle String [Maybe Char] [Char]
+data Puzzle = Puzzle String [Maybe Char] [Char] deriving Eq
 
 instance Show Puzzle where
   show (Puzzle _ discovered guessed) = 

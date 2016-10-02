@@ -74,12 +74,10 @@ data Dog =
   , dogsAddress :: Address
   } deriving (Eq, Show)
 
-getDogRM :: Person -> Dog
---getDogRM = Reader dogName >>= \x -> Reader address >>= \y -> return $ Dog x y
-getDogRM = do
-  name <- Reader dogName
-  addy <- Reader address
-  return $ Dog name addy
+getDogRM :: Reader Person Dog
+getDogRM = Reader dogName >>=
+           \x -> Reader address >>=
+           \y -> return $ Dog x y
 
 chris :: Person
 chris = Person (HumanName "Chris Allen")

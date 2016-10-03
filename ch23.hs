@@ -57,4 +57,4 @@ instance Functor (Moi s) where
 
 instance Applicative (Moi s) where
   pure a = Moi $ \s -> (a, s)
-  (Moi f) <*> (Moi g) = Moi $ \s -> (fst . f $ s) (fst . g $ s)
+  (Moi f) <*> (Moi g) = Moi $ \s -> ((fst . f $ s) (fst . g $ s), (snd . f $ s))

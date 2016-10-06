@@ -58,4 +58,4 @@ parseDecimal = do
   return (show dec ++ "." ++ show af)
 
 parseDecOrFrac :: Parser (Either Rational String)
-parseDecOrFrac = (Left <$> parseFraction) <|> (Right <$> parseDecimal)
+parseDecOrFrac = (Left <$> try parseFraction) <|> (Right <$> parseDecimal)

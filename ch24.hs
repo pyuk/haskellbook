@@ -1,5 +1,7 @@
 import Text.Trifecta
 import Text.Parser.Combinators
+import Control.Applicative
+import Data.Ratio ((%))
  
 stop :: Parser a
 stop = unexpected "stop"
@@ -41,3 +43,19 @@ main = do
   pNL "oneTwo':"
   testParse oneTwo'
 
+parseFraction :: Parser Rational
+parseFraction = do
+  numerator <- decimal
+  char '/'
+  denominator <- decimal
+  return (numerator % denominator)
+
+parseDecimal :: Parser String
+parseDecimal = do
+  dec <- decimal
+  char '.'
+  af <- decimal
+  return (show dec ++ "." ++ show af)
+
+parseDecOrFrac :: Parser (Either Rational String)
+parseDecOrFrac = (Left <$> parseFraction) <|> (Right <$> parseDecimal)

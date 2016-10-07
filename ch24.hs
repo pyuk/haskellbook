@@ -59,3 +59,48 @@ parseDecimal = do
 
 parseDecOrFrac :: Parser (Either Rational String)
 parseDecOrFrac = (Left <$> try parseFraction) <|> (Right <$> parseDecimal)
+
+data NumberOrString =
+    NOSS String
+  | NOSI Integer
+  deriving (Show)
+
+type Major = Integer
+type Minor = Integer
+type Patch = Integer
+type Release = [NumberOrString]
+type Metadata = [NumberOrString]
+
+data SemVer =
+  SemVer Major Minor Patch Release Metadata
+
+parseVer :: Parser (Major, Minor, Patch)
+parseVer = do
+  major <- decimal
+  _ <- char '.'
+  minor <- decimal
+  _ <- char '.'
+  patch <- decimal
+  return (major, minor, patch)
+
+parsePre :: Parser Release
+parsePre = do
+  pre <- some $ (NOSS <$> some letter) <|> (NOSI <$> integer)
+  skipMany (oneOf ".")
+  skipMany (oneOf "\n")
+  return pre
+  
+parseMeta :: Parser Metadata
+parseMeta = do
+  meta <- some $ (NOSS <$> some letter) <|> (NOSI <$> integer)
+  skipMany (oneOf ".")
+  return meta
+  
+parseSemVer :: Parser SemVer
+parseSemVer = do
+  (maj, min, pat) <- parseVer
+  _ <- char '-'
+  pre <- parsePre
+  _ <- char '+'
+  meta <- parseMeta
+  return $ SemVer maj min pat pre meta

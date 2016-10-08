@@ -63,7 +63,7 @@ parseDecOrFrac = (Left <$> try parseFraction) <|> (Right <$> parseDecimal)
 data NumberOrString =
     NOSS String
   | NOSI Integer
-  deriving (Show)
+  deriving (Show, Eq)
 
 type Major = Integer
 type Minor = Integer
@@ -73,6 +73,7 @@ type Metadata = [NumberOrString]
 
 data SemVer =
   SemVer Major Minor Patch Release Metadata
+  deriving (Show, Eq)
 
 parseVer :: Parser (Major, Minor, Patch)
 parseVer = do
@@ -85,22 +86,33 @@ parseVer = do
 
 parsePre :: Parser Release
 parsePre = do
-  pre <- some $ (NOSS <$> some letter) <|> (NOSI <$> integer)
-  skipMany (oneOf ".")
-  skipMany (oneOf "\n")
+  _ <- char '-'
+  pre <- sepBy1
+    ((NOSI <$> integer) <|> (NOSS <$> some alphaNum)) (char '.')
   return pre
   
 parseMeta :: Parser Metadata
 parseMeta = do
-  meta <- some $ (NOSS <$> some letter) <|> (NOSI <$> integer)
-  skipMany (oneOf ".")
+  _ <- char '+'
+  meta <- sepBy1 ((NOSS <$> some alphaNum) <|> (NOSI <$> integer)) (char '.')
   return meta
   
 parseSemVer :: Parser SemVer
 parseSemVer = do
   (maj, min, pat) <- parseVer
-  _ <- char '-'
-  pre <- parsePre
-  _ <- char '+'
-  meta <- parseMeta
+  pre <- parsePre <|> pure []
+  meta <- parseMeta <|> pure []
   return $ SemVer maj min pat pre meta
+
+instance Ord SemVer where
+  compare (SemVer x y z _ _) (SemVer x' y' z' _ _) =
+    case compare x x' of
+      EQ -> case compare y y' of
+        EQ -> case compare z z' of
+          EQ -> EQ
+          LT -> LT
+          GT -> GT
+        LT -> LT
+        GT -> GT
+      LT -> LT
+      GT -> GT

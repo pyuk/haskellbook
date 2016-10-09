@@ -2,6 +2,7 @@ import Text.Trifecta
 import Text.Parser.Combinators
 import Control.Applicative
 import Data.Ratio ((%))
+import Data.Char
  
 stop :: Parser a
 stop = unexpected "stop"
@@ -87,14 +88,13 @@ parseVer = do
 parsePre :: Parser Release
 parsePre = do
   _ <- char '-'
-  pre <- sepBy1
-    ((NOSI <$> integer) <|> (NOSS <$> some alphaNum)) (char '.')
+  pre <- sepBy1 ((NOSI <$> integer) <|> (NOSS <$> some letter)) (char '.')
   return pre
   
 parseMeta :: Parser Metadata
 parseMeta = do
   _ <- char '+'
-  meta <- sepBy1 ((NOSS <$> some alphaNum) <|> (NOSI <$> integer)) (char '.')
+  meta <- sepBy1 ((NOSS <$> some letter) <|> (NOSI <$> integer)) (char '.')
   return meta
   
 parseSemVer :: Parser SemVer
@@ -116,3 +116,10 @@ instance Ord SemVer where
         GT -> GT
       LT -> LT
       GT -> GT
+
+parseDigit :: Parser Char
+parseDigit = char '1' <|> char '2' <|> char '3' <|> char '4' <|> char '5' <|>
+             char '6' <|> char '7' <|> char '8' <|> char '9' <|> char '0'
+
+base10Integer :: Parser Integer
+base10Integer = fmap read $ some parseDigit

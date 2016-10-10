@@ -2,7 +2,6 @@ import Text.Trifecta
 import Text.Parser.Combinators
 import Control.Applicative
 import Data.Ratio ((%))
-import Data.Char
  
 stop :: Parser a
 stop = unexpected "stop"
@@ -123,3 +122,44 @@ parseDigit = char '1' <|> char '2' <|> char '3' <|> char '4' <|> char '5' <|>
 
 base10Integer :: Parser Integer
 base10Integer = fmap read $ some parseDigit
+
+base10Integer' :: Parser Integer
+base10Integer' = do
+  _ <- char '-'
+  bas <- base10Integer
+  return $ negate bas
+
+type NumberingPlanArea = Int
+type Exchange = Int
+type LineNumber = Int
+
+data PhoneNumber =
+  PhoneNumber NumberingPlanArea Exchange LineNumber
+  deriving (Eq, Show)
+
+parseParenthe :: Parser a -> Parser a
+parseParenthe p = char '(' *> p <* char ')'
+
+parsePhone1 :: Parser (NumberingPlanArea, Exchange, LineNumber)
+parsePhone1 = do
+  string "1-" <|> return ""
+  a <- parseParenthe integer <|> integer
+  char '-' <|> char ' '
+  b <- integer
+  char '-'
+  c <- integer
+  return (fromIntegral a,fromIntegral b, fromIntegral c)
+
+parseP :: String -> (Int, Int, Int)
+parseP = (,,) <$> read . take 3 <*> read . take 3 . drop 3 <*> read . drop 6
+
+parsePhone2 :: Parser (NumberingPlanArea, Exchange, LineNumber)
+parsePhone2 = do
+  a <- some digit
+  b <- return $ parseP a
+  return b
+
+parsePhone :: Parser PhoneNumber
+parsePhone = do
+  (a, b, c) <- try parsePhone1 <|> parsePhone2
+  return $ PhoneNumber a b c

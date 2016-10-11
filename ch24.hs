@@ -163,3 +163,33 @@ parsePhone :: Parser PhoneNumber
 parsePhone = do
   (a, b, c) <- try parsePhone1 <|> parsePhone2
   return $ PhoneNumber a b c
+
+type Hour = Integer
+type Min = Integer
+type Event = String
+
+data Activity = Activity Hour Min Event
+  deriving (Show, Eq)
+
+parseAct :: Parser Activity
+parseAct = do
+  hour <- integer
+  char ':'
+  min <- integer
+  event <- some (noneOf "--")
+  try parseComment <|> return []
+  skipMany (oneOf "\n")
+  return $ Activity hour min event
+
+parseComment :: Parser String
+parseComment = do
+  char '-' >> char '-' >> some (noneOf "\n")
+
+parseActivity :: Parser [Activity]
+parseActivity = do
+  (char '#' >> char ' ' >> some (noneOf "--")) <|> return []
+  try parseComment <|> return []
+  skipMany (oneOf "\n")
+  a <- some parseAct
+  skipMany (oneOf "\n")
+  return a

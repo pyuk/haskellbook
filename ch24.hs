@@ -176,8 +176,7 @@ parseAct = do
   hour <- integer
   char ':'
   min <- integer
-  event <- some (noneOf "--")
-  try parseComment <|> return []
+  event <- some (noneOf "\n")
   skipMany (oneOf "\n")
   return $ Activity hour min event
 
@@ -185,11 +184,18 @@ parseComment :: Parser String
 parseComment = do
   char '-' >> char '-' >> some (noneOf "\n")
 
+calcTime :: [Activity] -> [Activity]
+calcTime (x:[]) = [x]
+calcTime (Activity x y z : Activity x' y' z' : xs) =
+  (Activity (if y <= y' then x' - x else (x' - 1) - x)
+    (if y <= y' then y' - y else (y' + 60) - y) z) :
+  calcTime (Activity x' y' z' : xs)
+
 parseActivity :: Parser [Activity]
 parseActivity = do
-  (char '#' >> char ' ' >> some (noneOf "--")) <|> return []
-  try parseComment <|> return []
+  (char '#' >> char ' ' >> some (noneOf "\n")) <|> return []
   skipMany (oneOf "\n")
   a <- some parseAct
+  b <- return $ calcTime a
   skipMany (oneOf "\n")
-  return a
+  return b

@@ -202,7 +202,10 @@ parseActivity = do
   skipMany (oneOf "\n")
   return b
 
-data IPAddress = IPAddress Word32 deriving (Eq, Ord, Show)
+data IPAddress = IPAddress Word32 deriving (Eq, Ord)
+
+instance Show IPAddress where
+  show (IPAddress x) = show x
 
 parseIP :: Parser IPAddress
 parseIP = do
@@ -213,10 +216,35 @@ parseIP = do
   c <- decimal
   char '.'
   d <- decimal
-  x <- return . fromIntegral $ a * (256 ^ 3) + b * (256 ^ 2) + c * 256 + d
+  x <- return . fromIntegral $
+    a * (256 ^ 3) + b * (256 ^ 2) + c * 256 + d
   return $ IPAddress x
 
-data IPAddress6 = IPAddress6 Word64 deriving (Eq, Ord, Show)
+ipTo6 :: Parser String
+ipTo6 = do
+  a <- decimal
+  char '.'
+  b <- decimal
+  char '.'
+  c <- decimal
+  char '.'
+  d <- decimal
+  a' <- return $ checkVal (a `div` 16) : checkVal (a `mod` 16) : ""
+  b' <- return $ checkVal (b `div` 16) : checkVal (b `mod` 16) : ""
+  c' <- return $ checkVal (c `div` 16) : checkVal (c `mod` 16) : ""
+  d' <- return $ checkVal (d `div` 16) : checkVal (d `mod` 16) : ""
+  return $ "::" ++ a' ++ b' ++ ":" ++ c' ++ d'
+  where checkVal x = if x > 10 then intChar x else intToDigit $ fromIntegral x
+
+intChar :: Integer -> Char
+intChar x = foldr (\(a,a') b -> if a' == x then a else b) ' ' $
+            ['a'..'f'] `zip` [10..15]
+
+data IPAddress6 = IPAddress6 Integer
+  deriving (Eq, Ord)
+
+instance Show IPAddress6 where
+  show (IPAddress6 x) = show x
 
 insertZeros :: [Integer] -> Int -> [Integer]
 insertZeros (x:xs) y
@@ -236,25 +264,28 @@ hexToDec xs = dec (reverse xs) 0
 
 parseHex :: Parser Integer
 parseHex = 
-  (try $ letter >>= return . charInt) <|> (digit >>= return . read . (:""))
+  (try $ letter >>= return . charInt) <|>
+  (digit >>= return . read . (:""))
 
 charInt :: Char -> Integer
 charInt x = foldr (\(a,a') b -> if a == x then a' else b) 0 $
             (['a'..'f'] ++ ['A'..'F']) `zip` ([10..15] ++ [10..15])
 
 combineDec :: [Integer] -> Integer
-combineDec xs = com (reverse xs) 0
+combineDec xs' = com xs' 7
   where com [] _ = 0
-        com (x:xs) y = x * (65536 ^ y) + com xs (y + 1)
+        com (x:xs) y = x * (65536 ^ y) + com xs (y - 1)
 
 parseIP6' :: Parser [[Integer]]
 parseIP6' = do
   a <- some iP6Int
-  b <- return $ returnSuccess . traverse (parseString (some parseHex) mempty) $ a
+  b <- return $ returnSuccess [] . traverse
+    (parseString (some parseHex) mempty) $ a
   return b
-
-returnSuccess :: Result a -> a
-returnSuccess (Success a) = a
+  
+returnSuccess :: a -> Result a -> a
+returnSuccess _ (Success a) = a
+returnSuccess a (Failure _) = a
 
 parseIP6 :: Parser IPAddress6
 parseIP6 = do
@@ -262,5 +293,5 @@ parseIP6 = do
   zs <- return $ fmap hexToDec ys
   ss <- return $ insertZeros zs 0
   ss' <- return $ combineDec ss
-  return $ IPAddress6 $ fromIntegral ss'
+  return $ IPAddress6 ss'
  

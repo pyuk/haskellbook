@@ -3,6 +3,7 @@ import Text.Parser.Combinators
 import Control.Applicative
 import Data.Ratio ((%))
 import Data.Word
+import Data.Char
  
 stop :: Parser a
 stop = unexpected "stop"
@@ -228,14 +229,38 @@ iP6Int = do
   (try $ char ':' >> notFollowedBy (char ':')) <|> return ()
   return a
 
+hexToDec :: [Integer] -> Integer
+hexToDec xs = dec (reverse xs) 0
+  where dec [] _ = 0
+        dec (x:xs) y = x * (16 ^ y) + dec xs (y + 1)
+
+parseHex :: Parser Integer
+parseHex = 
+  (try $ letter >>= return . charInt) <|> (digit >>= return . read . (:""))
+
 charInt :: Char -> Integer
 charInt x = foldr (\(a,a') b -> if a == x then a' else b) 0 $
             (['a'..'f'] ++ ['A'..'F']) `zip` ([10..15] ++ [10..15])
 
+combineDec :: [Integer] -> Integer
+combineDec xs = com (reverse xs) 0
+  where com [] _ = 0
+        com (x:xs) y = x * (65536 ^ y) + com xs (y + 1)
 
+parseIP6' :: Parser [[Integer]]
+parseIP6' = do
+  a <- some iP6Int
+  b <- return $ returnSuccess . traverse (parseString (some parseHex) mempty) $ a
+  return b
 
---   parseIP6 :: Parser IPAddress6
---   parseIP6 = do
---   a <- some iP6Int
---   b <- return . insertZeros $ a
--- 
+returnSuccess :: Result a -> a
+returnSuccess (Success a) = a
+
+parseIP6 :: Parser IPAddress6
+parseIP6 = do
+  ys <- parseIP6'
+  zs <- return $ fmap hexToDec ys
+  ss <- return $ insertZeros zs 0
+  ss' <- return $ combineDec ss
+  return $ IPAddress6 $ fromIntegral ss'
+ 

@@ -2,6 +2,7 @@ import Text.Trifecta
 import Text.Parser.Combinators
 import Control.Applicative
 import Data.Ratio ((%))
+import Data.Word
  
 stop :: Parser a
 stop = unexpected "stop"
@@ -199,3 +200,42 @@ parseActivity = do
   b <- return $ calcTime a
   skipMany (oneOf "\n")
   return b
+
+data IPAddress = IPAddress Word32 deriving (Eq, Ord, Show)
+
+parseIP :: Parser IPAddress
+parseIP = do
+  a <- decimal
+  char '.'
+  b <- decimal
+  char '.'
+  c <- decimal
+  char '.'
+  d <- decimal
+  x <- return . fromIntegral $ a * (256 ^ 3) + b * (256 ^ 2) + c * 256 + d
+  return $ IPAddress x
+
+data IPAddress6 = IPAddress6 Word64 deriving (Eq, Ord, Show)
+
+insertZeros :: [Integer] -> Int -> [Integer]
+insertZeros (x:xs) y
+  | x == 0 = replicate (8 - length xs - y) 0 ++ xs
+  | otherwise = x : insertZeros xs (y + 1)
+
+iP6Int :: Parser String
+iP6Int = do
+  a <- (try $ string "::" >> return "0") <|> some alphaNum
+  (try $ char ':' >> notFollowedBy (char ':')) <|> return ()
+  return a
+
+charInt :: Char -> Integer
+charInt x = foldr (\(a,a') b -> if a == x then a' else b) 0 $
+            (['a'..'f'] ++ ['A'..'F']) `zip` ([10..15] ++ [10..15])
+
+
+
+--   parseIP6 :: Parser IPAddress6
+--   parseIP6 = do
+--   a <- some iP6Int
+--   b <- return . insertZeros $ a
+-- 

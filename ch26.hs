@@ -45,3 +45,22 @@ instance Monad m => Monad (ReaderT r m) where
   ReaderT rma >>= k = ReaderT $ \r -> do
     a <- rma r
     (runReaderT . k) a r
+
+newtype StateT s m a = StateT { runStateT :: s -> m (a,s) }
+
+instance Functor m => Functor (StateT s m) where
+  fmap f (StateT smas) = StateT $ \s -> fmap (first f) (smas s)
+    where first f (a,s) = (f a, s)
+
+instance Monad m => Applicative (StateT s m) where
+  pure x = StateT $ \s -> pure (x, s)
+  StateT fmabs <*> StateT smas = StateT $ \s -> do
+    (ab, s') <- fmabs s
+    (a, s'') <- smas s'
+    return (ab a, s'')
+    
+instance Monad m => Monad (StateT s m) where
+  return = pure
+  smas >>= k = StateT $ \s -> do
+    (a,s') <- (runStateT smas) s
+    runStateT (k a) s'

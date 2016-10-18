@@ -1,3 +1,5 @@
+import Control.Monad.Trans.Maybe
+
 newtype EitherT e m a =
   EitherT { runEitherT :: m (Either e a) }
 
@@ -46,14 +48,16 @@ instance Monad m => Monad (ReaderT r m) where
     a <- rma r
     (runReaderT . k) a r
 
-newtype StateT s m a = StateT { runStateT :: s -> m (a,s) }
+newtype StateT s m a =
+  StateT { runStateT :: s -> m (a,s) }
 
 instance Functor m => Functor (StateT s m) where
-  fmap f (StateT smas) = StateT $ \s -> fmap (first f) (smas s)
+--  fmap f (StateT smas) = StateT $ \s -> fmap (first f) (smas s)
+  fmap f (StateT smas) = StateT $ (fmap . fmap) (first f) smas
     where first f (a,s) = (f a, s)
 
 instance Monad m => Applicative (StateT s m) where
-  pure x = StateT $ \s -> pure (x, s)
+  pure x = StateT $ pure . (,) x
   StateT fmabs <*> StateT smas = StateT $ \s -> do
     (ab, s') <- fmabs s
     (a, s'') <- smas s'
@@ -64,3 +68,23 @@ instance Monad m => Monad (StateT s m) where
   smas >>= k = StateT $ \s -> do
     (a,s') <- (runStateT smas) s
     runStateT (k a) s'
+
+newtype ExceptT e m a = ExceptT { runExceptT :: m (Either e a) }
+
+instance Functor m => Functor (ExceptT e m) where
+  fmap f (ExceptT mea) = ExceptT $ (fmap . fmap) f mea
+
+instance Applicative m => Applicative (ExceptT e m) where
+  pure x = ExceptT $ pure (Right x)
+  ExceptT fmeab <*> ExceptT mea = ExceptT $ (<*>) <$> fmeab <*> mea
+
+instance Monad m => Monad (ExceptT e m) where
+  return = pure
+  ExceptT mea >>= k = ExceptT $ do
+    v <- mea
+    case v of
+      Right x -> runExceptT (k x)
+      Left x -> return $ Left x
+
+embedded :: MaybeT (ExceptT String (ReaderT () IO)) Int
+embedded = MaybeT . ExceptT . ReaderT $ return . const (Right (Just 1))

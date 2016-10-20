@@ -1,4 +1,5 @@
 import Control.Monad.Trans.Maybe
+import Control.Monad.Trans.Class
 
 newtype EitherT e m a =
   EitherT { runEitherT :: m (Either e a) }
@@ -88,3 +89,10 @@ instance Monad m => Monad (ExceptT e m) where
 
 embedded :: MaybeT (ExceptT String (ReaderT () IO)) Int
 embedded = MaybeT . ExceptT . ReaderT $ return . const (Right (Just 1))
+
+instance MonadTrans (EitherT e) where
+  lift = EitherT . fmap Right
+
+instance MonadTrans (StateT s) where
+  lift = StateT . (\a s -> a >>= \x -> return (x,s))
+

@@ -1,5 +1,6 @@
 import Control.Monad.Trans.Maybe
 import Control.Monad.Trans.Class
+import Control.Monad.IO.Class
 
 newtype EitherT e m a =
   EitherT { runEitherT :: m (Either e a) }
@@ -96,3 +97,20 @@ instance MonadTrans (EitherT e) where
 instance MonadTrans (StateT s) where
   lift = StateT . (\a s -> a >>= \x -> return (x,s))
 
+data MaybeT' m a = MaybeT' { runMaybeT' :: m (Maybe a) }
+
+instance Functor m => Functor (MaybeT' m) where
+  fmap f (MaybeT' x) = MaybeT' $ (fmap . fmap) f x
+
+instance Applicative m => Applicative (MaybeT' m) where
+  pure = MaybeT' . pure . pure
+  MaybeT' f <*> MaybeT' x = MaybeT' $ (<*>) <$> f <*> x
+
+instance Monad m => Monad (MaybeT' m) where
+  return = pure
+  MaybeT' x >>= k = MaybeT' $ x >>= \x' -> case x' of
+    Just a -> runMaybeT' . k $ a
+    Nothing -> return Nothing
+
+instance (MonadIO m) => MonadIO (MaybeT' m) where
+  liftIO = MaybeT' . Just . liftIO

@@ -113,4 +113,10 @@ instance Monad m => Monad (MaybeT' m) where
     Nothing -> return Nothing
 
 instance (MonadIO m) => MonadIO (MaybeT' m) where
-  liftIO = MaybeT' . Just . liftIO
+  liftIO = MaybeT' . liftIO . fmap Just
+
+instance MonadIO m => MonadIO (ReaderT r m) where
+  liftIO = ReaderT . const . liftIO
+
+instance MonadIO m => MonadIO (StateT r m) where
+  liftIO = StateT . (\a s -> fmap (\a' -> (a',s)) a) . liftIO

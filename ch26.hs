@@ -112,11 +112,38 @@ instance Monad m => Monad (MaybeT' m) where
     Just a -> runMaybeT' . k $ a
     Nothing -> return Nothing
 
+instance MonadTrans MaybeT' where
+  lift = MaybeT' . fmap Just
+
 instance (MonadIO m) => MonadIO (MaybeT' m) where
-  liftIO = MaybeT' . liftIO . fmap Just
+  liftIO = lift . liftIO
 
 instance MonadIO m => MonadIO (ReaderT r m) where
   liftIO = ReaderT . const . liftIO
 
 instance MonadIO m => MonadIO (StateT r m) where
-  liftIO = StateT . (\a s -> fmap (\a' -> (a',s)) a) . liftIO
+  liftIO = StateT . (\a s -> a >>= \x -> return (x,s)) . liftIO
+
+instance MonadIO m => MonadIO (EitherT e m) where
+  liftIO = lift . liftIO
+
+data Reader r a = Reader { runReader :: r -> a }
+
+instance Functor (Reader r) where
+  fmap f (Reader x) = Reader $ fmap f x
+
+instance Applicative (Reader r) where
+  pure x = Reader $ \_ -> x
+  Reader f <*> Reader x = Reader $ f <*> x
+
+instance Monad (Reader r) where
+  return = pure
+  Reader x >>= k = Reader $ \r -> runReader (k $ x r) r
+
+rDec :: Num a => Reader a a
+rDec = Reader $ (`subtract` 1)
+
+data Identity a = Identity a deriving Show
+
+rShow :: Show a => ReaderT a Identity String
+rShow = ReaderT $ \r -> Identity (show r)

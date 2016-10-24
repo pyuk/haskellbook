@@ -11,12 +11,14 @@ rShow :: Show a => ReaderT a Identity String
 rShow = ReaderT $ Identity . show
 
 rPrintAndInc :: (Num a, Show a) => ReaderT a IO a
-rPrintAndInc = ReaderT $ \r -> putStrLn ("hi: " ++ show r) >>
-                               return (r + 1)
+rPrintAndInc = ReaderT $ \r ->
+  putStrLn ("hi: " ++ show r) >>
+  return (r + 1)
 
 sPrintIncAccum :: (Num a, Show a) => StateT a IO String
-sPrintIncAccum = StateT $ \s -> putStrLn ("hi: " ++ show s) >>
-                                return (show s, s+1)
+sPrintIncAccum = StateT $ \s ->
+  putStrLn ("hi: " ++ show s) >>
+  return (show s, s+1)
 
 isValid :: String -> Bool
 isValid v = '!' `elem` v

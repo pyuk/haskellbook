@@ -10,3 +10,8 @@ sTake n (Cons x xs) = (Cons x (sTake (n-1) xs))
 
 twoEls = Cons 1 (Cons undefined Nil)
 oneEl = sTake 1 twoEls
+
+x = undefined
+y = "blah"
+main = do
+  print $ x `seq` (snd (x, y))

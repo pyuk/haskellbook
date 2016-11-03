@@ -16,3 +16,11 @@ s = S.fromList $ take 10000 stream
   where stream = iterate (+1) 0
 
 s2 = s
+
+main :: IO ()
+main = defaultMain
+  [ bench "put together maps" $
+    nf (mappend m) m2
+  , bench "put together sets" $
+    nf (mappend s) s2
+  ]

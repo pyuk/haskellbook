@@ -44,10 +44,10 @@ main2 = defaultMain
 newtype DList a = DL { unDL :: [a] -> [a] }
 
 empty :: DList a
-empty = DL $ \_ -> []
+empty = DL $ ([] ++)
 
 singleton :: a -> DList a
-singleton x = DL $ \_ -> [x]
+singleton x = DL $ ([x] ++)
 
 toList :: DList a -> [a]
 toList (DL f) = f []
@@ -58,10 +58,10 @@ cons x xs = DL ((x:) . unDL xs)
 
 infixl `snoc`
 snoc :: DList a -> a -> DList a
-snoc (DL f) x = DL $ (++ [x]) . f
+snoc (DL f) x = DL $ unDL (singleton x) . f
 
 append :: DList a -> DList a -> DList a
-append xs ys = foldr cons ys (toList xs)
+append (DL f) (DL g) = DL $ f . g
 
 schlemiel :: Int -> [Int]
 schlemiel i = go i []
@@ -78,3 +78,30 @@ main = defaultMain
   [ bench "concat list" $ whnf schlemiel 123456
   , bench "concat dlist" $ whnf constructDlist 123456
   ]
+
+data Queue a =
+  Queue { enqueue :: [a]
+        , dequeue :: [a]
+        } deriving (Eq, Show)
+
+push :: a -> Queue a -> Queue a
+push x xs = Queue (x : enqueue xs) (dequeue xs) 
+
+pop :: Queue a -> Maybe (a, Queue a)
+pop (Queue xs []) = Nothing
+pop (Queue xs (y:ys)) = Just (y, Queue xs ys)
+
+qs :: Queue Int
+qs = Queue [1..10000] [10000..1]
+
+list :: [Int]
+list = [1..10000]
+
+pushPopQ :: Int -> Int
+pushPopQ n = go n qs
+  where go x [] = x
+        go x xs = 
+
+main' :: IO ()
+main' = defaultMain
+  [ bench "list pop" $ whnf 

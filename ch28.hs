@@ -92,16 +92,7 @@ pop (Queue xs []) = Nothing
 pop (Queue xs (y:ys)) = Just (y, Queue xs ys)
 
 qs :: Queue Int
-qs = Queue [1..10000] [10000..1]
+qs = Queue [1..10000] [10000, 9999..1]
 
 list :: [Int]
 list = [1..10000]
-
-pushPopQ :: Int -> Int
-pushPopQ n = go n qs
-  where go x [] = x
-        go x xs = 
-
-main' :: IO ()
-main' = defaultMain
-  [ bench "list pop" $ whnf 

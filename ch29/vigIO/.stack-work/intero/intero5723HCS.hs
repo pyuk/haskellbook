@@ -1,7 +1,7 @@
 module Main where
 
-import Lib
 import VigCipher
+import Lib
 
 main :: IO ()
 main = someFunc

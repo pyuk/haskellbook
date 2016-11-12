@@ -1,0 +1,89 @@
+
+==================== FINAL INTERFACE ====================
+2016-11-12 02:38:05.639238 UTC
+
+interface vigIO-0.1.0.0-ItaPjwKPVuJKEAkQOAuq1e:VigCipher 8001
+  interface hash: 26861d3b7ce7e9561d540353c9fbe71d
+  ABI hash: e4348407e75dca38be638299c0000721
+  export-list hash: c0d78ad04e3ed7b8845ead3d3eee5bc8
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: b159a15c55fa7c6870cb2eb79bbae5a5
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  VigCipher.unCipher
+  VigCipher.vigCipher
+module dependencies:
+package dependencies: base-4.9.0.0* ghc-prim-0.5.0.0
+                      integer-gmp-1.0.0.1
+orphans: base-4.9.0.0:GHC.Base base-4.9.0.0:GHC.Float
+family instance modules: base-4.9.0.0:Control.Applicative
+                         base-4.9.0.0:Data.Either base-4.9.0.0:Data.Functor.Const
+                         base-4.9.0.0:Data.Monoid base-4.9.0.0:Data.Type.Equality
+                         base-4.9.0.0:GHC.Generics base-4.9.0.0:GHC.IO.Exception
+                         base-4.9.0.0:GHC.TypeLits
+import  -/  base-4.9.0.0:Data.Char eb33dc25ecb52d018a0ca26590e2b50b
+import  -/  base-4.9.0.0:Data.Foldable 8aeb682f6c74f97fcf0ace0d608a43ea
+import  -/  base-4.9.0.0:GHC.Base 8ed3be81c0707b322f975a84ae1bb816
+import  -/  base-4.9.0.0:GHC.Char 3824744793840b1b7a48109a01ef7f24
+import  -/  base-4.9.0.0:GHC.List 13d2451194c1c6e53b4f4f07947736dd
+import  -/  base-4.9.0.0:GHC.Num 48f506a8f4ecf06285d0a0706594dcc0
+import  -/  base-4.9.0.0:GHC.Real 08bf4acb5f2508f89d6fbcd57fe232e9
+import  -/  base-4.9.0.0:Prelude b9bddb97799837fe67a8d00939a5b6c3
+import  -/  ghc-prim-0.5.0.0:GHC.Classes 0bdf3d057a415ec1b84a7b1994efbe47
+e7b5549f2f6bfe62ee0829b199ce6a86
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   VigCipher.$trModule2
+                   VigCipher.$trModule1) -}
+f92294e34def2f0b80bfe70724cd13dd
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS "VigCipher"#) -}
+a7beb3e7ecc855bc4c8b7c835a38bbee
+  $trModule2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS
+                   "vigIO-0.1.0.0-ItaPjwKPVuJKEAkQOAuq1e"#) -}
+7992b32b01f1f7cd550033b30f421dcb
+  conv ::
+    GHC.Base.String
+    -> GHC.Base.String -> GHC.Types.Int -> GHC.Base.String
+  {- Arity: 3, Strictness: <S,1*U><L,U><L,U(U)> -}
+3f2af4f0969bc0aa152a0aac275ecf3e
+  unCipher :: GHC.Base.String -> GHC.Base.String -> GHC.Base.String
+  {- Arity: 2, Strictness: <S,U><L,U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (xs :: GHC.Base.String) (ys :: GHC.Base.String) ->
+                 VigCipher.unCipher_vigC
+                   xs
+                   (VigCipher.conv xs ys VigCipher.unCipher1)) -}
+2eb4ea2ace42c4709c981074f0f24a83
+  unCipher1 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 1#) -}
+58450f204126c53e0c31e7f3ba4ec0ff
+  unCipher_vigC ::
+    [GHC.Types.Char] -> [GHC.Types.Char] -> [GHC.Types.Char]
+  {- Arity: 2, Strictness: <S,1*U><L,1*U> -}
+5b673f44c2e4861aead219aaab7d30bf
+  vigCipher :: GHC.Base.String -> GHC.Base.String -> GHC.Base.String
+  {- Arity: 2, Strictness: <S,U><L,U>,
+     Unfolding: InlineRule (2, True, False)
+                (\ (xs :: GHC.Base.String) (ys :: GHC.Base.String) ->
+                 VigCipher.vigCipher_vigC
+                   xs
+                   (VigCipher.conv xs ys VigCipher.unCipher1)) -}
+961ba0efdfe491fe3cf7405760b41bd6
+  vigCipher_vigC ::
+    [GHC.Types.Char] -> [GHC.Types.Char] -> [GHC.Types.Char]
+  {- Arity: 2, Strictness: <S,1*U><L,1*U> -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: safe
+require own pkg trusted: False
+

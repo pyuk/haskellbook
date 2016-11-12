@@ -1,4 +1,7 @@
-module VigCipher where
+module VigCipher
+  ( vigCipher
+  , unCipher
+  ) where
 
 import Data.Char
 

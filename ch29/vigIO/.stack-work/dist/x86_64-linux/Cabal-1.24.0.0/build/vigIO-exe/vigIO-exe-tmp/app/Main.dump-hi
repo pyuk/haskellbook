@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2016-11-12 02:38:37.206804 UTC
+2016-11-15 04:57:40.140519 UTC
 
 interface main@main:Main 8001
-  interface hash: 8e4ecd40db7e3bab1a2b49e1ecced760
-  ABI hash: dbc902d1d4a0a4c780011be0c3c8bcb2
-  export-list hash: d6aa2c06bc02df7ee46e61540f996114
+  interface hash: 15a2acd83be3d4f71c6aeb3ae2f8c449
+  ABI hash: 649358f882a9dfce781d4691ffb585d0
+  export-list hash: 690cfa90f26ba6142b5253b85f0419bb
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: eb654962999287f520bafc04e2700355
   sig of: Nothing
@@ -13,6 +13,9 @@ interface main@main:Main 8001
   where
 exports:
   Main.main
+  Main.main'
+  Main.main1
+  Main.vigIO
 module dependencies:
 package dependencies: base-4.9.0.0* ghc-prim-0.5.0.0
                       integer-gmp-1.0.0.1
@@ -23,7 +26,11 @@ family instance modules: base-4.9.0.0:Control.Applicative
                          base-4.9.0.0:Data.Monoid base-4.9.0.0:Data.Type.Equality
                          base-4.9.0.0:GHC.Generics base-4.9.0.0:GHC.IO.Exception
                          base-4.9.0.0:GHC.TypeLits
+import  -/  base-4.9.0.0:Data.Functor 6fc476505db88d678632a4a838125f13
+import  -/  base-4.9.0.0:GHC.Base 8ed3be81c0707b322f975a84ae1bb816
 import  -/  base-4.9.0.0:Prelude b9bddb97799837fe67a8d00939a5b6c3
+import  -/  base-4.9.0.0:System.Environment ee0914a962f5508d0fd404c89ee4999b
+import  -/  base-4.9.0.0:System.IO eb1d40aa793a4047069a5023f2ebcfe3
 import  -/  ghc-prim-0.5.0.0:GHC.Types 7378e41b7749213c8c88ceb6b0665d4c
 import  -/  vigIO-0.1.0.0@vigIO-0.1.0.0-ItaPjwKPVuJKEAkQOAuq1e:Lib 6b0d17d812a9e1ea90775c861deddcb9
 import  -/  vigIO-0.1.0.0@vigIO-0.1.0.0-ItaPjwKPVuJKEAkQOAuq1e:VigCipher e4348407e75dca38be638299c0000721
@@ -39,19 +46,173 @@ d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule2 :: GHC.Types.TrName
   {- HasNoCafRefs, Strictness: m1,
      Unfolding: (GHC.Types.TrNameS "main"#) -}
-259f8dfcde7e1c0b584f81a8940167fb
+90c27bda4ab144cb2b4653c2c9779282
+  $wfail ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <B,U>x, Inline: [0] -}
+b375e954bfe0f1105ba08b83d22e0ff9
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
-                Lib.someFunc1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-24f209f0b872c400a51b1abc9b0fd366
-  main1 ::
+                Main.main2 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+8c7f5b65e174fb23a8e6c80ad5f2f9ef
+  main' :: GHC.Types.IO ()
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.main'1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+e03e8008f77d4decb80be6d2954fdbe9
+  main'1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main'3
+                        GHC.Types.False
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 case GHC.IO.Handle.Internals.wantReadableHandle_1
+                        @ GHC.Base.String
+                        GHC.IO.Handle.Text.hGetLine4
+                        GHC.IO.Handle.FD.stdin
+                        GHC.IO.Handle.Text.hGetLine2
+                          `cast`
+                        (<GHC.IO.Handle.Types.Handle__>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <GHC.Base.String>_R))
+                        ipv of ds2 { (#,#) ipv2 ipv3 ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main'2
+                        GHC.Types.False
+                        ipv2 of ds3 { (#,#) ipv4 ipv5 ->
+                 case GHC.IO.Handle.Internals.wantReadableHandle_1
+                        @ GHC.Base.String
+                        GHC.IO.Handle.Text.hGetLine4
+                        GHC.IO.Handle.FD.stdin
+                        GHC.IO.Handle.Text.hGetLine2
+                          `cast`
+                        (<GHC.IO.Handle.Types.Handle__>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <GHC.Base.String>_R))
+                        ipv4 of ds4 { (#,#) ipv6 ipv7 ->
+                 GHC.IO.Handle.Text.hPutStr2
+                   GHC.IO.Handle.FD.stdout
+                   (GHC.Types.:
+                      @ GHC.Types.Char
+                      GHC.Show.shows8
+                      (GHC.Show.showLitString
+                         (VigCipher.vigCipher ipv3 ipv7)
+                         Main.main3))
+                   GHC.Types.True
+                   ipv6 } } } }) -}
+99d0511ba28629d350502511f0ae59d1
+  main'2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "enter key: "#) -}
+4872d7f2304304c4b03e5f00b034f0b1
+  main'3 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "enter message: "#) -}
+83aaeb3b20c18513e81574298861cfb2
+  main1 :: GHC.Types.IO ()
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.main'1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+808ace7a4dd4ea23a7338825b6fe8214
+  main2 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                 case System.Environment.getArgs1 s of ds1 { (#,#) ipv ipv1 ->
+                 case ipv1 of wild {
+                   [] -> Main.$wfail ipv
+                   : key ds
+                   -> case ds of wild1 {
+                        [] -> Main.$wfail ipv
+                        : mode text
+                        -> case GHC.Base.eqString mode Main.main7 of wild2 {
+                             GHC.Types.False
+                             -> case GHC.Base.eqString mode Main.main6 of wild3 {
+                                  GHC.Types.False
+                                  -> case mode of wild4 {
+                                       []
+                                       -> GHC.IO.Handle.Text.hPutStr2
+                                            GHC.IO.Handle.FD.stdout
+                                            Main.main5
+                                            GHC.Types.True
+                                            ipv
+                                       : ipv2 ipv3
+                                       -> case Main.main4
+                                          ret_ty (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+                                          of {} }
+                                  GHC.Types.True
+                                  -> GHC.IO.Handle.Text.hPutStr2
+                                       GHC.IO.Handle.FD.stdout
+                                       (GHC.Types.:
+                                          @ GHC.Types.Char
+                                          GHC.Show.shows8
+                                          (let {
+                                             xs :: GHC.Base.String = Main.main_go1 text
+                                           } in
+                                           GHC.Show.showLitString
+                                             (VigCipher.unCipher_vigC
+                                                xs
+                                                (VigCipher.conv xs key VigCipher.unCipher1))
+                                             Main.main3))
+                                       GHC.Types.True
+                                       ipv }
+                             GHC.Types.True
+                             -> GHC.IO.Handle.Text.hPutStr2
+                                  GHC.IO.Handle.FD.stdout
+                                  (GHC.Types.:
+                                     @ GHC.Types.Char
+                                     GHC.Show.shows8
+                                     (let {
+                                        xs :: GHC.Base.String = Main.main_go text
+                                      } in
+                                      GHC.Show.showLitString
+                                        (VigCipher.vigCipher_vigC
+                                           xs
+                                           (VigCipher.conv xs key VigCipher.unCipher1))
+                                        Main.main3))
+                                  GHC.Types.True
+                                  ipv } } } }) -}
+aff805e1c13973eae9927d1c4be5caf4
+  main3 :: [GHC.Types.Char]
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Char
+                   GHC.Show.shows8
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+1b8c8a07c818c436f50534f5ae196835
+  main4 :: GHC.Types.IO ()
+  {- Strictness: x -}
+ed68deadecad81b935b6476fba5af16e
+  main5 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "please pass args"#) -}
+8341d59d4335940517605d1eed836e08
+  main6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "-e"#) -}
+7c2af2ffc6621505dd9882f36e71768e
+  main7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "-d"#) -}
+a72034f04def943d2fe02457c061ba87
+  main8 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 1,
      Unfolding: (GHC.TopHandler.runMainIO1
                    @ ()
-                   Lib.someFunc1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
+                   Main.main2 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
+b2e6af29b35c1ceae256e0770ff44870
+  main_go :: [[GHC.Types.Char]] -> [GHC.Types.Char]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+f88dbc827b6fbd3d2884c1a3d9d69f4f
+  main_go1 :: [[GHC.Types.Char]] -> [GHC.Types.Char]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+5ea7f34a9856b99b7311133076bf23d6
+  vigIO :: GHC.Base.String -> GHC.Base.String -> GHC.Base.String
+  {- Arity: 2, Strictness: <S,U><L,U>,
+     Unfolding: InlineRule (0, True, True) VigCipher.vigCipher -}
 vectorised variables:
 vectorised tycons:
 vectorised reused tycons:

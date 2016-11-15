@@ -28,12 +28,12 @@
   (major1) == 0 && (major2) <  5 || \
   (major1) == 0 && (major2) == 5 && (minor) <= 7)
 
-/* tool gcc-5.4.0 */
-#define TOOL_VERSION_gcc "5.4.0"
+/* tool gcc-6.2.1 */
+#define TOOL_VERSION_gcc "6.2.1"
 #define MIN_TOOL_VERSION_gcc(major1,major2,minor) (\
-  (major1) <  5 || \
-  (major1) == 5 && (major2) <  4 || \
-  (major1) == 5 && (major2) == 4 && (minor) <= 0)
+  (major1) <  6 || \
+  (major1) == 6 && (major2) <  2 || \
+  (major1) == 6 && (major2) == 2 && (minor) <= 1)
 
 /* tool ghc-8.0.1 */
 #define TOOL_VERSION_ghc "8.0.1"
@@ -70,12 +70,12 @@
   (major1) == 0 && (major2) <  68 || \
   (major1) == 0 && (major2) == 68 && (minor) <= 0)
 
-/* tool pkg-config-0.29.1 */
-#define TOOL_VERSION_pkg_config "0.29.1"
+/* tool pkg-config-0.29 */
+#define TOOL_VERSION_pkg_config "0.29"
 #define MIN_TOOL_VERSION_pkg_config(major1,major2,minor) (\
   (major1) <  0 || \
   (major1) == 0 && (major2) <  29 || \
-  (major1) == 0 && (major2) == 29 && (minor) <= 1)
+  (major1) == 0 && (major2) == 29 && (minor) <= 0)
 
 /* tool strip-2.26 */
 #define TOOL_VERSION_strip "2.26"

@@ -1,20 +1,22 @@
 
 ==================== FINAL INTERFACE ====================
-2016-11-15 04:57:40.140519 UTC
+2016-11-16 05:34:19.577884 UTC
 
 interface main@main:Main 8001
-  interface hash: 15a2acd83be3d4f71c6aeb3ae2f8c449
-  ABI hash: 649358f882a9dfce781d4691ffb585d0
-  export-list hash: 690cfa90f26ba6142b5253b85f0419bb
+  interface hash: 57a24cfd1468598f7e1dee5ce52a6428
+  ABI hash: f923c9f6c854cb545521ed37ac4fb9a5
+  export-list hash: d7c3f68182a17bfeed9f6d635de08ba2
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: eb654962999287f520bafc04e2700355
   sig of: Nothing
   used TH splices: False
   where
 exports:
+  Main.listTest
   Main.main
   Main.main'
   Main.main1
+  Main.main2
   Main.vigIO
 module dependencies:
 package dependencies: base-4.9.0.0* ghc-prim-0.5.0.0
@@ -28,6 +30,9 @@ family instance modules: base-4.9.0.0:Control.Applicative
                          base-4.9.0.0:GHC.TypeLits
 import  -/  base-4.9.0.0:Data.Functor 6fc476505db88d678632a4a838125f13
 import  -/  base-4.9.0.0:GHC.Base 8ed3be81c0707b322f975a84ae1bb816
+import  -/  base-4.9.0.0:GHC.IO.Handle.FD adf0145182d1c6eb38b2b8ce5a292e84
+import  -/  base-4.9.0.0:GHC.IO.Handle.Text 23b6dc4ed000f42bf105ce56bdeb0dc6
+import  -/  base-4.9.0.0:GHC.IO.IOMode 9380a6a6b8c50facc225c4877c5e1e90
 import  -/  base-4.9.0.0:Prelude b9bddb97799837fe67a8d00939a5b6c3
 import  -/  base-4.9.0.0:System.Environment ee0914a962f5508d0fd404c89ee4999b
 import  -/  base-4.9.0.0:System.IO eb1d40aa793a4047069a5023f2ebcfe3
@@ -51,17 +56,29 @@ d6831ef04cb9301b090dfae6f7bb7ec7
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 1, Strictness: <B,U>x, Inline: [0] -}
-b375e954bfe0f1105ba08b83d22e0ff9
+8705bc48dcfa3565bd3e6dc0eca25dbb
+  listTest :: [GHC.Base.String] -> GHC.Base.String
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>,
+     Unfolding: (\ (ds :: [GHC.Base.String]) ->
+                 case ds of wild {
+                   [] -> GHC.Types.[] @ GHC.Types.Char
+                   : x ds1
+                   -> case ds1 of wild1 {
+                        [] -> x : ipv ipv1 -> Main.listTest_go wild } }) -}
+aeca1e05ad698a9ff978c4bba133fe65
+  listTest_go :: [[GHC.Types.Char]] -> [GHC.Types.Char]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+4b99c5dfd9c8b17d9c269603b00e34b3
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
-                Main.main2 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-8c7f5b65e174fb23a8e6c80ad5f2f9ef
+                Main.main4 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+db24abcb0c012566dfaa7f563a5eff1c
   main' :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Main.main'1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-e03e8008f77d4decb80be6d2954fdbe9
+b164b1d73d22d3d061f4afea363dbb06
   main'1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -83,7 +100,7 @@ e03e8008f77d4decb80be6d2954fdbe9
                         ipv of ds2 { (#,#) ipv2 ipv3 ->
                  case GHC.IO.Handle.Text.hPutStr2
                         GHC.IO.Handle.FD.stdout
-                        Main.main'2
+                        Main.main8
                         GHC.Types.False
                         ipv2 of ds3 { (#,#) ipv4 ipv5 ->
                  case GHC.IO.Handle.Internals.wantReadableHandle_1
@@ -102,22 +119,26 @@ e03e8008f77d4decb80be6d2954fdbe9
                       GHC.Show.shows8
                       (GHC.Show.showLitString
                          (VigCipher.vigCipher ipv3 ipv7)
-                         Main.main3))
+                         Main.main'2))
                    GHC.Types.True
                    ipv6 } } } }) -}
-99d0511ba28629d350502511f0ae59d1
+75db46a60c9ae04634ead253dca017b3
   main'2 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCString# "enter key: "#) -}
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Types.Char
+                   GHC.Show.shows8
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
 4872d7f2304304c4b03e5f00b034f0b1
   main'3 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "enter message: "#) -}
-83aaeb3b20c18513e81574298861cfb2
+595c4a1999d4077dc20dcacbc9ab320a
   main1 :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Main.main'1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-808ace7a4dd4ea23a7338825b6fe8214
-  main2 ::
+c7ea928d97a4e4db46db28d3726af753
+  main10 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 1, Strictness: <S,U>,
@@ -129,86 +150,154 @@ e03e8008f77d4decb80be6d2954fdbe9
                    -> case ds of wild1 {
                         [] -> Main.$wfail ipv
                         : mode text
-                        -> case GHC.Base.eqString mode Main.main7 of wild2 {
+                        -> case GHC.IO.Handle.FD.openFile1
+                                  (Main.listTest text)
+                                  GHC.IO.IOMode.ReadMode
+                                  ipv of ds2 { (#,#) ipv2 ipv3 ->
+                           case GHC.IO.Handle.Text.hGetContents1
+                                  ipv3
+                                  ipv2 of ds3 { (#,#) ipv4 ipv5 ->
+                           case GHC.Base.eqString mode Main.main13 of wild2 {
                              GHC.Types.False
-                             -> case GHC.Base.eqString mode Main.main6 of wild3 {
+                             -> case GHC.Base.eqString mode Main.main12 of wild3 {
                                   GHC.Types.False
-                                  -> case mode of wild4 {
-                                       []
-                                       -> GHC.IO.Handle.Text.hPutStr2
-                                            GHC.IO.Handle.FD.stdout
-                                            Main.main5
-                                            GHC.Types.True
-                                            ipv
-                                       : ipv2 ipv3
-                                       -> case Main.main4
-                                          ret_ty (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
-                                          of {} }
+                                  -> GHC.IO.Handle.Text.hPutStr2
+                                       GHC.IO.Handle.FD.stdout
+                                       Main.main11
+                                       GHC.Types.True
+                                       ipv4
                                   GHC.Types.True
                                   -> GHC.IO.Handle.Text.hPutStr2
                                        GHC.IO.Handle.FD.stdout
-                                       (GHC.Types.:
-                                          @ GHC.Types.Char
-                                          GHC.Show.shows8
-                                          (let {
-                                             xs :: GHC.Base.String = Main.main_go1 text
-                                           } in
-                                           GHC.Show.showLitString
-                                             (VigCipher.unCipher_vigC
-                                                xs
-                                                (VigCipher.conv xs key VigCipher.unCipher1))
-                                             Main.main3))
+                                       (VigCipher.vigCipher ipv5 key)
                                        GHC.Types.True
-                                       ipv }
+                                       ipv4 }
                              GHC.Types.True
                              -> GHC.IO.Handle.Text.hPutStr2
                                   GHC.IO.Handle.FD.stdout
-                                  (GHC.Types.:
-                                     @ GHC.Types.Char
-                                     GHC.Show.shows8
-                                     (let {
-                                        xs :: GHC.Base.String = Main.main_go text
-                                      } in
-                                      GHC.Show.showLitString
-                                        (VigCipher.vigCipher_vigC
-                                           xs
-                                           (VigCipher.conv xs key VigCipher.unCipher1))
-                                        Main.main3))
+                                  (VigCipher.unCipher ipv5 key)
                                   GHC.Types.True
-                                  ipv } } } }) -}
-aff805e1c13973eae9927d1c4be5caf4
-  main3 :: [GHC.Types.Char]
-  {- HasNoCafRefs,
-     Unfolding: (GHC.Types.:
-                   @ GHC.Types.Char
-                   GHC.Show.shows8
-                   (GHC.Types.[] @ GHC.Types.Char)) -}
-1b8c8a07c818c436f50534f5ae196835
-  main4 :: GHC.Types.IO ()
-  {- Strictness: x -}
-ed68deadecad81b935b6476fba5af16e
-  main5 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCString# "please pass args"#) -}
-8341d59d4335940517605d1eed836e08
-  main6 :: [GHC.Types.Char]
+                                  ipv4 } } } } } }) -}
+bb611223d682789c9bc737b79113cc6a
+  main11 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString#
+                   "please pass -d or -e"#) -}
+1b16926c5461f87a96a087ea547334e2
+  main12 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "-e"#) -}
-7c2af2ffc6621505dd9882f36e71768e
-  main7 :: [GHC.Types.Char]
+eee90215f69c67b2ac99adb004f0981e
+  main13 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "-d"#) -}
-a72034f04def943d2fe02457c061ba87
-  main8 ::
+d107a767e2b7fe33c119403c4c99849b
+  main2 :: GHC.Types.IO ()
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                Main.main10 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+8b92e311ae689fdb3fc494b726af17f0
+  main4 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main8
+                        GHC.Types.False
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 case GHC.IO.Handle.Internals.wantReadableHandle_1
+                        @ GHC.Base.String
+                        GHC.IO.Handle.Text.hGetLine4
+                        GHC.IO.Handle.FD.stdin
+                        GHC.IO.Handle.Text.hGetLine2
+                          `cast`
+                        (<GHC.IO.Handle.Types.Handle__>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <GHC.Base.String>_R))
+                        ipv of ds2 { (#,#) ipv2 ipv3 ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main7
+                        GHC.Types.False
+                        ipv2 of ds3 { (#,#) ipv4 ipv5 ->
+                 case GHC.IO.Handle.Internals.wantReadableHandle_1
+                        @ GHC.Types.Char
+                        GHC.IO.Handle.Text.hGetChar3
+                        GHC.IO.Handle.FD.stdin
+                        GHC.IO.Handle.Text.hGetChar2
+                          `cast`
+                        (<GHC.IO.Handle.Types.Handle__>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <GHC.Types.Char>_R))
+                        ipv4 of ds4 { (#,#) ipv6 ipv7 ->
+                 case GHC.IO.Handle.Internals.wantReadableHandle_1
+                        @ GHC.Types.Char
+                        GHC.IO.Handle.Text.hGetChar3
+                        GHC.IO.Handle.FD.stdin
+                        GHC.IO.Handle.Text.hGetChar2
+                          `cast`
+                        (<GHC.IO.Handle.Types.Handle__>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <GHC.Types.Char>_R))
+                        ipv6 of ds5 { (#,#) ipv8 ipv9 ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main6
+                        GHC.Types.False
+                        ipv8 of ds6 { (#,#) ipv10 ipv11 ->
+                 case GHC.IO.Handle.Internals.wantReadableHandle_1
+                        @ GHC.Base.String
+                        GHC.IO.Handle.Text.hGetLine4
+                        GHC.IO.Handle.FD.stdin
+                        GHC.IO.Handle.Text.hGetLine2
+                          `cast`
+                        (<GHC.IO.Handle.Types.Handle__>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <GHC.Base.String>_R))
+                        ipv10 of ds7 { (#,#) ipv12 ipv13 ->
+                 case GHC.IO.Handle.FD.openFile1
+                        ipv13
+                        GHC.IO.IOMode.ReadWriteMode
+                        ipv12 of ds8 { (#,#) ipv14 ipv15 ->
+                 case GHC.IO.Handle.Text.hGetContents1
+                        ipv15
+                        ipv14 of ds9 { (#,#) ipv16 ipv17 ->
+                 case ipv9 of wild { GHC.Types.C# ds ->
+                 case ds of ds10 {
+                   DEFAULT
+                   -> GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        Main.main5
+                        GHC.Types.True
+                        ipv16
+                   'd'#
+                   -> GHC.IO.Handle.Text.hPutStr2
+                        ipv15
+                        (VigCipher.unCipher ipv17 ipv3)
+                        GHC.Types.False
+                        ipv16
+                   'e'#
+                   -> GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        (VigCipher.vigCipher ipv17 ipv3)
+                        GHC.Types.False
+                        ipv16 } } } } } } } } } } }) -}
+1be6c67abf29c1a6535378bd27c2fe1c
+  main5 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString#
+                   "please pass -e or -d"#) -}
+6f71851a830a8d566f3a4a72a0ac6d3f
+  main6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "give me a file: "#) -}
+2b10a066ebb28303553d3b34edcccd91
+  main7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "enter mode: "#) -}
+b0e9f6f4fecffdb380d87a51ffc0a437
+  main8 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "enter key: "#) -}
+7427d581d0e6acb8326ed78e2ab72bae
+  main9 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 1,
      Unfolding: (GHC.TopHandler.runMainIO1
                    @ ()
-                   Main.main2 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
-b2e6af29b35c1ceae256e0770ff44870
-  main_go :: [[GHC.Types.Char]] -> [GHC.Types.Char]
-  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
-f88dbc827b6fbd3d2884c1a3d9d69f4f
-  main_go1 :: [[GHC.Types.Char]] -> [GHC.Types.Char]
-  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+                   Main.main4 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
 5ea7f34a9856b99b7311133076bf23d6
   vigIO :: GHC.Base.String -> GHC.Base.String -> GHC.Base.String
   {- Arity: 2, Strictness: <S,U><L,U>,

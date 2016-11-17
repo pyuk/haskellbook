@@ -20,22 +20,26 @@ main' = vigIO <$>
         (putStr "enter key: "     >> getLine) >>=
         print
 
-listTest :: [String] -> String
-listTest [] = mempty
-listTest [x] = x
-listTest xs = mconcat xs
-
-main2 :: IO ()
-main2 = do
+main :: IO ()
+main = do
   (key:mode:text) <- getArgs
-  contents <- readFile (listTest text)
+  contents <- readFile (mconcat text)
   case mode of
     "-d" -> hPutStrLn stdout $ unCipher contents key
     "-e" -> hPutStrLn stdout $ vigCipher contents key
-    otherwise   -> putStrLn "please pass -d or -e"
+    "-t" -> do
+      fileName <- putStr "give me a file: " >> getLine
+      handle <- openFile fileName ReadWriteMode
+      hBool <- hWaitForInput handle 3
+      if hBool then do
+        contents <- hGetContents handle
+        hClose handle
+        putStr $ vigCipher contents key
+        else hPutStr stderr "too slow"
+    otherwise -> putStrLn "please pass -d or -e"
 
-main :: IO ()
-main = do
+main2 :: IO ()
+main2 = do
   key <- putStr "enter key: " >> getLine
   mode <- putStr "enter mode: " >> hGetChar stdin >> hGetChar stdin
   handle <- getLine >>=
